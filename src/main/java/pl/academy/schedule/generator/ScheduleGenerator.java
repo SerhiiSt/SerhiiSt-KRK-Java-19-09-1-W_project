@@ -12,10 +12,6 @@ public class ScheduleGenerator implements IScheduleGenerator {
 
     private EnteredParameters enteredParameters;
 
-
-    public ScheduleGenerator() {
-    }
-
     @Override
     public Schedule generateSchedule(EnteredParameters enteredParameters) {
 
@@ -49,7 +45,6 @@ public class ScheduleGenerator implements IScheduleGenerator {
 
 
         return new Schedule(lessons, true);
-
 
     }
 
