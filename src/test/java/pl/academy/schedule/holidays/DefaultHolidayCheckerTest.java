@@ -1,12 +1,12 @@
 package pl.academy.schedule.holidays;
 
-import org.junit.jupiter.api.Test;
+        import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.Collection;
+        import java.time.LocalDate;
+        import java.util.Collection;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.collection.IsEmptyCollection.empty;
+        import static org.hamcrest.MatcherAssert.assertThat;
+        import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 public class DefaultHolidayCheckerTest {
 
