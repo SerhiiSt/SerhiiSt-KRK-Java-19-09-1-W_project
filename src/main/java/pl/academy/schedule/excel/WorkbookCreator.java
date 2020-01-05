@@ -32,12 +32,16 @@ public class WorkbookCreator {
 
             Cell dateCell = row.createCell(0);
             dateCell.setCellValue(lesson.getDate());
+            dateCell.setCellStyle(cellDateStyle);
+
 
             Cell beginTime = row.createCell(3);
             beginTime.setCellValue(createDateWithTime(lesson.getBeginTime()));
+            beginTime.setCellStyle(cellTimeStyle);
 
             Cell endTime = row.createCell(4);
             endTime.setCellValue(createDateWithTime(lesson.getEndTime()));
+            endTime.setCellStyle(cellTimeStyle);
 
             Cell lessonTime = row.createCell(5);
             int index = i + 1;
