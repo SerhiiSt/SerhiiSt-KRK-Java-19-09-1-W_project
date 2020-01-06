@@ -13,8 +13,9 @@ import java.util.Optional;
 
 public class WorkbookCreator {
     public Workbook createWorkbook(Schedule schedule) {
+
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet();
+        Sheet sheet = workbook.createSheet("Lessons");
 
         CellStyle cellDateStyle = workbook.createCellStyle();
         CreationHelper createDateHelper = workbook.getCreationHelper();
@@ -47,6 +48,22 @@ public class WorkbookCreator {
             int index = i + 1;
             String timeFormula = "E" + index + "-D" + index + "";
             lessonTime.setCellFormula("IF(B" + index + "=\"done\",HOUR(" + timeFormula + ") + MINUTE(" + timeFormula + ")/60,\"\")");
+
+            Row rowHoursDone = getOrCreateRow(sheet, 0);
+            Cell hoursDone = rowHoursDone.createCell(7);
+            hoursDone.setCellValue("hours done");
+
+
+            Row rowSumHours = getOrCreateRow(sheet, 0);
+            Cell sumHours = rowSumHours.createCell(8);
+            int indexSumHours = 1;
+            sumHours.setCellFormula("SUM(F" + (indexSumHours++) + ":F" + lessons.size() + ")");
+
+            Row rowHoursPlanned = getOrCreateRow(sheet, 1);
+            Cell hoursPlanned = rowHoursPlanned.createCell(7);
+            hoursPlanned.setCellValue("hours planned");
+
+
         }
 
         return workbook;
