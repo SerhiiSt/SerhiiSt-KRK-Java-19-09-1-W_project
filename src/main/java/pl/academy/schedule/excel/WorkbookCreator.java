@@ -1,6 +1,8 @@
 package pl.academy.schedule.excel;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import pl.academy.schedule.generator.Lesson;
 import pl.academy.schedule.generator.Schedule;
@@ -16,6 +18,13 @@ public class WorkbookCreator {
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Lessons");
+
+
+        XSSFCellStyle xssfCellStyle = (XSSFCellStyle) workbook.createCellStyle();
+        XSSFFont xssfFont = (XSSFFont) workbook.createFont();
+        xssfFont.setBold(true);
+        xssfCellStyle.setFont(xssfFont);
+
 
         CellStyle cellDateStyle = workbook.createCellStyle();
         CreationHelper createDateHelper = workbook.getCreationHelper();
@@ -63,6 +72,35 @@ public class WorkbookCreator {
             Cell hoursPlanned = rowHoursPlanned.createCell(7);
             hoursPlanned.setCellValue("hours planned");
 
+            Row rowHoursPlannedValue = getOrCreateRow(sheet, 1);
+            Cell hoursPlannedValue = rowHoursPlannedValue.createCell(8);
+            hoursPlannedValue.setCellValue(4.5);
+
+            Row rowLessonsDone = getOrCreateRow(sheet, 3);
+            Cell lessonsDone = rowLessonsDone.createCell(7);
+            lessonsDone.setCellValue("lessons done");
+
+            Cell lessonDoneValue = rowLessonsDone.createCell(8);
+            int indexLessonDoneValue = 1;
+            lessonDoneValue.setCellFormula("COUNTIF(B" + (indexLessonDoneValue++) + ":B" + lessons.size() + ",\"done\")");
+
+            Row rowLessonsPlanned = getOrCreateRow(sheet, 4);
+            Cell lessonsPlanned = rowLessonsPlanned.createCell(7);
+            lessonsPlanned.setCellValue("lessons planned");
+
+            Row rowLessonsPlannedValue = getOrCreateRow(sheet, 4);
+            Cell lessonsPlannedValue = rowLessonsPlannedValue.createCell(8);
+            lessonsPlannedValue.setCellValue(2);
+
+            Row rowStatus = getOrCreateRow(sheet, rowHoursDone.getPhysicalNumberOfCells() + 3);
+            Cell status = rowStatus.createCell(7);
+            status.setCellStyle(xssfCellStyle);
+            status.setCellValue("STATUS");
+
+
+            Cell rowStatusValue = rowStatus.createCell(8);
+            rowStatusValue.setCellStyle(xssfCellStyle);
+            rowStatusValue.setCellFormula("IF(I1=I2,\"COMPLETED\",\"IN PROGRESS\")");
 
         }
 
